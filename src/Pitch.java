@@ -125,18 +125,25 @@ public class Pitch {
 	// asks the user which field he wants to explore
 	public void getUserInput(Scanner scanner) {
 		System.out.print("(u)n(m)ark or (e)xplore: ");
-		String choice = scanner.next();
-		System.out.print("x: ");
-		int x = Integer.parseInt(scanner.next());
-		System.out.print("y: ");
-		int y = Integer.parseInt(scanner.next());
-		System.out.println();
-		if (choice.equals("e")) {
-			explore(x, y);
-		} else if (choice.equalsIgnoreCase("m")) {
-			mark(x, y);
-		} else if (choice.equalsIgnoreCase("u")) {
-			unmark(x, y);
+		String choice = scanner.nextLine().trim();
+		
+		if (choice.equalsIgnoreCase("x")) {
+			System.exit(0);
+		}
+		
+		if (LittleTools.equalsOneOf(true, choice, "e", "m", "u")) {
+			int x = LittleTools.saveIntInput("x: ");
+			int y = LittleTools.saveIntInput("y: ");
+			System.out.println();
+			if (choice.equalsIgnoreCase("e")) {
+				explore(x, y);
+			} else if (choice.equalsIgnoreCase("m")) {
+				mark(x, y);
+			} else if (choice.equalsIgnoreCase("u")) {
+				unmark(x, y);
+			}
+		} else {
+			System.out.println("Invalid input. Enter x for exit.\n");
 		}
 	}
 
