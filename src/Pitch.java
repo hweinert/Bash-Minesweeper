@@ -2,30 +2,27 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Pitch {
-	private int maxLength;
+	private int height;
+	private int width;
 	private Field[][] fields;
 	private int minedFields;
 	private int fieldsAllreadyExplored;
 	// if a mined field is discovered the pitch is destroyed
 	private boolean destroyed;
 
-	// maxLength determines width and height of the pitch (fields x fields)
-	// fields are mined with a chance of 1 / minedPossibility
-	public Pitch(int maxLength, int minedPossibility) {
-		// maxLength can not be higher than 99 and not lower than 10
-		if (maxLength > 99) {
-			maxLength = 99;
-			System.out.println("size set to 99 (maximum)");
-		} else if (maxLength < 10) {
-			maxLength = 10;
-			System.out.println("size set to 10 (minimum)");
-		}
-		this.maxLength = maxLength;
+	public Pitch(int height, int width, int minedPossibility) {
+		if (height > 99) height = 99; System.out.println("The maximum height is 99.");
+		if (height < 10) height = 10; System.out.println("The minimum height is 10.");
+		if (width > 99) width = 99; System.out.println("The maximum width is 99.");
+		if (width < 10) width = 10; System.out.println("The minimum width is 10.");
+		this.height = height;
+		this.width = width;
+		
 		// generate the pitch
-		fields = new Field[maxLength][maxLength];
+		fields = new Field[height][width];
 		Random random = new Random();
-		for (int i = 0; i < maxLength; i++) {
-			for (int j = 0; j < maxLength; j++) {
+		for (int i = 0; i < height; i++) {
+			for (int j = 0; j < width; j++) {
 				if (random.nextInt(minedPossibility) + 1 == minedPossibility) {
 					fields[i][j] = new Field(true);
 					minedFields++;
@@ -37,7 +34,7 @@ public class Pitch {
 	}
 
 	public boolean isCompletelyExplored() {
-		return maxLength * maxLength - minedFields - fieldsAllreadyExplored == 0;
+		return height * width - minedFields - fieldsAllreadyExplored == 0;
 	}
 
 	public boolean isDestroyed() {
@@ -98,16 +95,21 @@ public class Pitch {
 
 	private int[][] getNearbyFields(int x, int y) {
 		// determine the coordinates of neighbor fields
-		int[][] allCoordinates = new int[][] { { x - 1, y - 1 }, { x - 1, y }, { x - 1, y + 1 }, { x, y - 1 },
-				{ x, y + 1 }, { x + 1, y - 1 }, { x + 1, y }, { x + 1, y + 1 } };
+		int[][] nearbyCoordinates = new int[][] { 
+			{ x - 1, y - 1 }, { x - 1, y }, { x - 1, y + 1 }, 
+			{ x,     y - 1 },               { x    , y + 1 }, 
+			{ x + 1, y - 1 }, { x + 1, y }, { x + 1, y + 1 } 
+		};
 
 		// check how many valid coordinates exist
 		int numberOfValidCoordinates = 0;
 		int[] indices = new int[8];
 		int indicesIndex = 0; // i find it kind of funny
 		for (int i = 0; i < 8; i++) {
-			if ((allCoordinates[i][0] > -1 && allCoordinates[i][0] < maxLength)
-					&& (allCoordinates[i][1] > -1 && allCoordinates[i][1] < maxLength)) {
+			if ((nearbyCoordinates[i][0] > -1 
+			&& nearbyCoordinates[i][0] < height)
+			&& (nearbyCoordinates[i][1] > -1 
+			&& nearbyCoordinates[i][1] < width)) {
 				numberOfValidCoordinates++;
 				indices[indicesIndex] = i;
 				indicesIndex++;
@@ -117,7 +119,7 @@ public class Pitch {
 		// add the valid coordinates to a list and return it
 		int[][] validCoordinates = new int[numberOfValidCoordinates][2];
 		for (int i = 0; i < numberOfValidCoordinates; i++) {
-			validCoordinates[i] = allCoordinates[indices[i]];
+			validCoordinates[i] = nearbyCoordinates[indices[i]];
 		}
 		return validCoordinates;
 	}
@@ -132,8 +134,8 @@ public class Pitch {
 		}
 		
 		if (LittleTools.equalsOneOf(true, choice, "e", "m", "u")) {
-			int x = LittleTools.saveIntInput("x: ");
-			int y = LittleTools.saveIntInput("y: ");
+			int x = LittleTools.saveIntInput("x: ", 1, height);
+			int y = LittleTools.saveIntInput("y: ", 1, width);
 			System.out.println();
 			if (choice.equalsIgnoreCase("e")) {
 				explore(x, y);
@@ -151,7 +153,7 @@ public class Pitch {
 	public void display() {
 		// display x coordinates
 		System.out.print("     ");
-		for (int i = 0; i < maxLength; i++) {
+		for (int i = 0; i < width; i++) {
 			if (i < 10) {
 				System.out.print(i + "  ");
 			} else {
@@ -161,14 +163,14 @@ public class Pitch {
 		System.out.println("\n");
 
 		// display all lines
-		for (int i = 0; i < maxLength; i++) {
+		for (int i = 0; i < height; i++) {
 			if (i < 10) {
 				System.out.print(i + "    ");
 			} else {
 				System.out.print(i + "   ");
 			}
 
-			for (int j = 0; j < maxLength; j++) {
+			for (int j = 0; j < width; j++) {
 				System.out.print(fields[i][j].getAppearance() + "  ");
 			}
 			System.out.println("\n");

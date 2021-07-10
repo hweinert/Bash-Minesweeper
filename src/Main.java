@@ -3,8 +3,14 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		Pitch pitch = new Pitch(10, 8);
+		
+		int height = 10;
+		int width = 20;
+		int bombs = 16;
+		Pitch pitch = new Pitch(height, width, bombs);
+		
 		pitch.displayUserInformation();
+		
 		while (!pitch.isCompletelyExplored() && !pitch.isDestroyed()) {
 			pitch.display();
 			pitch.getUserInput(scanner);

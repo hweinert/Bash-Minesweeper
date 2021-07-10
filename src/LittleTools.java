@@ -15,6 +15,17 @@ public class LittleTools {
 		}
 	}
 	
+	public static int saveIntInput(String prompt, int lowerRange, int upperRange) {
+		while (true) {
+			int input = saveIntInput(prompt);
+			if (input > upperRange || input < lowerRange) {
+				System.out.println("The input has to be between " + lowerRange + " and " + upperRange + ".");
+			} else {
+				return input;
+			}
+		}
+	}
+	
 	public static boolean equalsOneOf(boolean ignoreCase, String string, String... symbols) {
 		for (String symbol : symbols) {
 			if (ignoreCase) {
@@ -25,6 +36,4 @@ public class LittleTools {
 		}
 		return false;
 	}
-	
-	
 }
