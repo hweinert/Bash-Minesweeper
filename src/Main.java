@@ -9,10 +9,10 @@ public class Main {
 			pitch.display();
 			pitch.getUserInput(scanner);
 		}
-		
+
 		// game over
 		pitch.display();
-		if(pitch.isCompletelyExplored()) {
+		if (pitch.isCompletelyExplored()) {
 			System.out.println("You have won the game!");
 		} else {
 			System.out.println("You stepped on a mine");
@@ -20,4 +20,3 @@ public class Main {
 		scanner.close();
 	}
 }
-
