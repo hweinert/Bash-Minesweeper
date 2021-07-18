@@ -2,19 +2,30 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Pitch {
+	// minimum width and height of a field
+	public static int min = 5;
+	// maximum width and height of a field
+	public static int max = 99;
+	// minimum value of minedPossibility
+	public static int minimumMined = 2;
+	
 	private int height;
 	private int width;
 	private Field[][] fields;
 	private int minedFields;
-	private int fieldsAllreadyExplored;
+	private int fieldsAlreadyExplored;
 	// if a mined field is discovered the pitch is destroyed
 	private boolean destroyed;
 
 	public Pitch(int height, int width, int minedPossibility) {
-		if (height > 99) height = 99; System.out.println("The maximum height is 99.");
-		if (height < 10) height = 10; System.out.println("The minimum height is 10.");
-		if (width > 99) width = 99; System.out.println("The maximum width is 99.");
-		if (width < 10) width = 10; System.out.println("The minimum width is 10.");
+		if (height > max) { height = max; System.out.println("The maximum height is " + max + "."); }
+		if (height < min) { height = min; System.out.println("The minimum height is " + min + "."); }
+		if (width > max) { width = max; System.out.println("The maximum width is " + max + "."); }
+		if (width < min) { width = min; System.out.println("The minimum width is " + min + "."); }
+		if (minedPossibility < minimumMined) {
+			minedPossibility = minimumMined; 
+			System.out.println("The minimum value for mined fields is one of {" + minimumMined + "}.");
+		}
 		this.height = height;
 		this.width = width;
 		
@@ -34,7 +45,7 @@ public class Pitch {
 	}
 
 	public boolean isCompletelyExplored() {
-		return height * width - minedFields - fieldsAllreadyExplored == 0;
+		return height * width - minedFields - fieldsAlreadyExplored == 0;
 	}
 
 	public boolean isDestroyed() {
@@ -49,7 +60,10 @@ public class Pitch {
 
 	// returns true if discovered field is mined
 	public boolean explore(int x, int y) {
-		fieldsAllreadyExplored++;
+		if (!fields[x][y].isExplored()) {
+			fieldsAlreadyExplored++;
+		}
+			
 		fields[x][y].explore();
 
 		if (fields[x][y].isMined()) {
@@ -130,12 +144,12 @@ public class Pitch {
 		String choice = scanner.nextLine().trim();
 		
 		if (choice.equalsIgnoreCase("x")) {
-			System.exit(0);
+			return;
 		}
 		
 		if (LittleTools.equalsOneOf(true, choice, "e", "m", "u")) {
-			int x = LittleTools.saveIntInput("x: ", 1, height);
-			int y = LittleTools.saveIntInput("y: ", 1, width);
+			int x = LittleTools.saveIntInput("x: ", 0, height-1);
+			int y = LittleTools.saveIntInput("y: ", 0, width-1);
 			System.out.println();
 			if (choice.equalsIgnoreCase("e")) {
 				explore(x, y);
