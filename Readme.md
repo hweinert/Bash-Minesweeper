@@ -6,4 +6,4 @@ Compile command:
 javac *.java
 
 Run command: 
-java MainFrame
+java Main
