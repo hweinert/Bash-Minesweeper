@@ -10,7 +10,6 @@ public class Game {
 			System.out.println("[3] Exit");
 			
 			System.out.print("Input: ");
-			scanner.reset();
 			String input = scanner.nextLine();
 			System.out.println();
 			
