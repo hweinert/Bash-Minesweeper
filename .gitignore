@@ -1,3 +1,5 @@
+.gitignore
+Todo.txt
 bin
 .classpath
 .project
