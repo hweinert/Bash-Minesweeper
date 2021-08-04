@@ -16,6 +16,7 @@ public class Pitch {
 	private int fieldsAlreadyExplored;
 	// if a mined field is discovered the pitch is destroyed
 	private boolean destroyed;
+	private boolean givenUp;
 
 	public Pitch(int height, int width, int minedPossibility) {
 		if (height > max) { height = max; System.out.println("The maximum height is " + max + "."); }
@@ -28,6 +29,9 @@ public class Pitch {
 		}
 		this.height = height;
 		this.width = width;
+		
+		destroyed = false;
+		givenUp = false;
 		
 		// generate the pitch
 		fields = new Field[height][width];
@@ -50,6 +54,10 @@ public class Pitch {
 
 	public boolean isDestroyed() {
 		return destroyed;
+	}
+	
+	public boolean isGivenUp() {
+		return givenUp;
 	}
 
 	// tells the user how to enter data
@@ -144,6 +152,7 @@ public class Pitch {
 		String choice = scanner.nextLine().trim();
 		
 		if (choice.equalsIgnoreCase("x")) {
+			givenUp = true;
 			return;
 		}
 		

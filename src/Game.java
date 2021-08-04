@@ -55,17 +55,22 @@ public class Game {
 		
 		pitch.displayUserInformation();
 		
-		while (!pitch.isCompletelyExplored() && !pitch.isDestroyed()) {
+		while (!pitch.isCompletelyExplored() && !pitch.isDestroyed() && !pitch.isGivenUp()) {
 			pitch.display();
 			pitch.getUserInput(scanner);
 		}
 
 		// game over
-		pitch.display();
-		if (pitch.isCompletelyExplored()) {
-			System.out.println("You've won the game!");
+		
+		if (pitch.isGivenUp()) {
+			System.out.println("You gave up.");
 		} else {
-			System.out.println("You stepped on a mine.");
+			pitch.display();
+			if (pitch.isCompletelyExplored()) {
+				System.out.println("You've won the game!");
+			} else {
+				System.out.println("You stepped on a mine.");
+			}
 		}
 		System.out.println();
 	}

@@ -27,6 +27,10 @@ public class GameMode {
 		return new GameMode(Difficulty.CUSTOM, height, width, minedPossibility);
 	}
 	
+	public Difficulty getDifficulty() {
+		return difficulty;
+	}
+	
 	public int getHeight() {
 		return height;
 	}
