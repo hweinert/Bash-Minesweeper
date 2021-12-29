@@ -1,5 +1,8 @@
+
 import java.util.Random;
 import java.util.Scanner;
+
+import littlelib.Tools;
 
 public class Pitch {
 	// minimum width and height of a field
@@ -68,7 +71,7 @@ public class Pitch {
 
 	// returns true if discovered field is mined
 	public boolean explore(int x, int y) {
-		if (!fields[x][y].isExplored()) {
+		if (!fields[x][y].isExplored() && !fields[x][y].isMined()) {
 			fieldsAlreadyExplored++;
 		}
 			
@@ -156,9 +159,9 @@ public class Pitch {
 			return;
 		}
 		
-		if (LittleTools.equalsOneOf(true, choice, "e", "m", "u")) {
-			int x = LittleTools.saveIntInput("x: ", 0, height-1);
-			int y = LittleTools.saveIntInput("y: ", 0, width-1);
+		if (Tools.equalsOneOf(true, choice, "e", "m", "u")) {
+			int x = Tools.saveIntInput("x: ", 0, height-1);
+			int y = Tools.saveIntInput("y: ", 0, width-1);
 			System.out.println();
 			if (choice.equalsIgnoreCase("e")) {
 				explore(x, y);
