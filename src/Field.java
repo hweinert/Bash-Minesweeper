@@ -42,6 +42,7 @@ public class Field {
 		if (isMined()) {
 			modifiedAppearance = null;
 		}
+		
 		return explored;
 	}
 
