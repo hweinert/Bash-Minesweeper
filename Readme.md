@@ -1,9 +1,6 @@
-# Minesweeper CMD
+# Bash Minesweeper
 
-This is a free java implementation of Minesweeper.
+![Screenshot](screenshot.png)
 
-Compile command: 
-javac *.java
-
-Run command: 
-java Main
+This is a free implementation of Minesweeper.
+An executable is included in this repository.

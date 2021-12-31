@@ -160,15 +160,15 @@ public class Pitch {
 		}
 		
 		if (Tools.equalsOneOf(true, choice, "e", "m", "u")) {
-			int x = Tools.saveIntInput("x: ", 0, height-1);
-			int y = Tools.saveIntInput("y: ", 0, width-1);
+			int x = Tools.saveIntInput("x: ", 0, width-1);
+			int y = Tools.saveIntInput("y: ", 0, height-1);
 			System.out.println();
 			if (choice.equalsIgnoreCase("e")) {
-				explore(x, y);
+				explore(y, x);
 			} else if (choice.equalsIgnoreCase("m")) {
-				mark(x, y);
+				mark(y, x);
 			} else if (choice.equalsIgnoreCase("u")) {
-				unmark(x, y);
+				unmark(y, x);
 			}
 		} else {
 			System.out.println("Invalid input. Enter x for exit.\n");

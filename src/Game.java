@@ -7,15 +7,13 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.FileInputStream; 
 import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.io.IOException;
 
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Game implements Serializable {
-	private static final long serialVersionUID = 6757400342605184116L;
+public class Game {
 	private static final String SAVE_PATH = "Minesweeper.data";
 	private static Scanner scanner = new Scanner(System.in);
 	
@@ -28,9 +26,9 @@ public class Game implements Serializable {
 		if (save.exists()) {
 			load();
 		} else {
-			easyHighScoreList = new HighScoreList("Easy Mode", 2, "seconds", true);
-			normalHighScoreList = new HighScoreList("Normal Mode", 2, "seconds", true);
-			hardHighScoreList = new HighScoreList("Hard Mode", 2, "seconds", true);
+			easyHighScoreList = new HighScoreList("Easy Mode", 5, "seconds", true);
+			normalHighScoreList = new HighScoreList("Normal Mode", 5, "seconds", true);
+			hardHighScoreList = new HighScoreList("Hard Mode", 5, "seconds", true);
 		}
 	}
 	
@@ -154,6 +152,7 @@ public class Game implements Serializable {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void load() {
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(SAVE_PATH))) {
 			List<HighScoreList> scoreLists = new ArrayList<>();
