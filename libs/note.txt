@@ -1,0 +1,4 @@
+The LittleLib.jar is included in this folder.
+It is a library created by me and can also be found on Github.
+https://github.com/hweinert/LittleLib
+It also has on open source license.
